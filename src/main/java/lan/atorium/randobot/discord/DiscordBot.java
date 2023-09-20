@@ -6,6 +6,8 @@ import discord4j.core.event.domain.lifecycle.ReadyEvent;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
 import discord4j.core.object.entity.User;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import reactor.core.publisher.Mono;
 
 /**
@@ -17,8 +19,12 @@ public class DiscordBot {
     private DiscordClient client;
     
     public DiscordBot() {
-        config = new DiscordConfig();
-        connect();
+        try {
+            config = new DiscordConfig();
+            connect();
+        } catch (Exception ex) {
+            Logger.getLogger(DiscordBot.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void connect() {
